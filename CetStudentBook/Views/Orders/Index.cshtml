@@ -1,0 +1,40 @@
+@model IEnumerable<CetStudentBook.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<h1>My Orders</h1>
+
+@if (!Model.Any())
+{
+    <p>You have no orders yet.</p>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-light">
+                <div class="d-flex justify-content-between">
+                    <span><strong>Order Date:</strong> @order.OrderDate.ToLocalTime().ToString("g")</span>
+                    <span><strong>Total:</strong> @order.TotalAmount.ToString("C")</span>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    @foreach (var item in order.OrderItems)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                @item.Book?.Name <br />
+                                <small class="text-muted">Quantity: @item.Quantity</small>
+                            </div>
+                            <span>@((item.UnitPrice * item.Quantity).ToString("C"))</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+}

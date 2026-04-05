@@ -1,0 +1,20 @@
+@model CetStudentBook.Models.Book
+
+<h1>Kitabı Sil</h1>
+<h3>Bu kitabı silmek istediğinize emin misiniz?</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Kitap Adı</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+        <dt class="col-sm-2">Yazar</dt>
+        <dd class="col-sm-10">@Model.Author</dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Evet, Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Hayır, Vazgeç</a>
+    </form>
+</div>

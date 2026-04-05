@@ -1,0 +1,44 @@
+@model CetStudentBook.Models.Book
+
+<h1>Kitabı Düzenle</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label>Kitap Adı</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Yazar</label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Yayın Tarihi</label>
+        <input asp-for="PublishDate" class="form-control" type="date" />
+        <span asp-validation-for="PublishDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Sayfa Sayısı</label>
+        <input asp-for="PageCount" class="form-control" />
+        <span asp-validation-for="PageCount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Kategori</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+    </div>
+    <div class="form-group">
+        <label>Fiyat</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-check">
+        <input asp-for="IsSecondHand" class="form-check-input" />
+        <label class="form-check-label">İkinci El mi?</label>
+    </div>
+    <div class="mt-3">
+        <input type="submit" value="Güncelle" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Vazgeç</a>
+    </div>
+</form>

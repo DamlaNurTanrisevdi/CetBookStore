@@ -1,0 +1,50 @@
+@model IEnumerable<CetStudentBook.Models.Book>
+
+@{
+    ViewData["Title"] = "Kitap Listesi";
+}
+
+<h1>Kitap Listesi</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Kitap Ekle</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Kitap Adı</th>
+        <th>Yazar</th>
+        <th>Kategori</th>
+        <th>Yayın Tarihi</th>
+        <th>Sayfa Sayısı</th>
+        <th>Fiyat</th>
+        <th>İkinci El</th>
+        <th>İşlemler</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Author</td>
+            <td>@(item.Category?.Name)</td>
+            <td>@item.PublishDate.ToShortDateString()</td>
+            <td>@item.PageCount</td>
+            <td>@item.Price.ToString("C")</td>
+            <td>@(item.IsSecondHand ? "Evet" : "Hayır")</td>
+            <td>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <form asp-controller="Cart" asp-action="AddToCart" method="post" style="display:inline;">
+                        <input type="hidden" name="bookId" value="@item.Id" />
+                        <button type="submit" class="btn btn-sm btn-success">Sepete Ekle</button>
+                    </form>
+                }
+                
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Düzenle</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
