@@ -1,0 +1,66 @@
+﻿@model CetBookStore.Models.Category
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h1>@Model.Name</h1>
+<hr />
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Title
+            </th>
+            
+            <th>
+                Author
+            </th>
+            <th>
+               Publisher
+            </th>
+           
+            <th>
+               Price
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-controller="Books" asp-route-id="@item.Id"> @Html.DisplayFor(modelItem => item.Title)</a>
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Publisher)
+                </td>
+               
+                <td>
+                    @if (item.IsInSale) { <span  class="text-danger text-decoration-line-through"> @item.PreviousPrice </span> }
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+               
+                <td>
+                    <a asp-action="" asp-route-id="@item.Id">Buy Now</a> |
+                    <a asp-action="" asp-route-id="@item.Id">Add to Basket</a> 
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
