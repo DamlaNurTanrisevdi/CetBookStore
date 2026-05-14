@@ -1,95 +1,63 @@
-﻿@model IEnumerable<CetBookStore.Models.Book>
-
+@model IEnumerable<CetBookStore.Models.Book>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Kitaplar";
 }
 
-<h1>Index</h1>
+<div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+    <h2 class="fw-bold m-0">Kitaplar</h2>
+    <a asp-action="Create" class="btn btn-primary">Yeni Kitap Ekle</a>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PageCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsInSale)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PreviousPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublicationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publisher)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PageCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsInSale)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PreviousPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublicationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center py-5 rounded-3">
+        <h4>Henüz kayıtlı kitap bulunmamaktadır.</h4>
+        <p>Hemen "Yeni Kitap Ekle" butonuyla ilk kitabınızı oluşturabilirsiniz.</p>
+    </div>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 p-3">
+                    <div class="card-body p-2 d-flex flex-column">
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@item.ImageUrl" class="card-img-top mb-3 rounded" alt="@item.Title" style="height: 200px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="card-img-top mb-3 rounded bg-light d-flex flex-column align-items-center justify-content-center text-muted" style="height: 200px;">
+                                <i class="bi bi-image" style="font-size: 3rem;"></i>
+                                <small>Resim Yok</small>
+                            </div>
+                        }
+                        <h4 class="card-title fw-bold mb-1">@item.Title</h4>
+                        <h6 class="text-muted mb-3">@Html.DisplayFor(modelItem => item.Category.Name)</h6>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 text-primary fw-bold">@item.Price.ToString("C")</span>
+                            </div>
+                            
+                            <hr class="text-muted opacity-25">
+                            
+                            <div class="d-flex justify-content-between">
+                                <form asp-controller="Cart" asp-action="AddToCart" method="post" class="flex-grow-1 me-2">
+                                    <input type="hidden" name="bookId" value="@item.Id" />
+                                    <button type="submit" class="btn btn-success w-100 fw-bold shadow-sm">Satın Al</button>
+                                </form>
+                                <div class="d-flex gap-1 border-start ps-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary d-flex align-items-center">Düzenle</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger d-flex align-items-center">Sil</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

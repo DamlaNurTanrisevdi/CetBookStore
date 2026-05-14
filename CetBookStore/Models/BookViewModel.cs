@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace CetBookStore.Models
 {
-    public class Book
+    public class BookViewModel
     {
-        [Key]
         public int Id { get; set; }       
         
         [Required(ErrorMessage = "Lütfen kitap adını giriniz.")]
@@ -18,5 +18,7 @@ namespace CetBookStore.Models
         public virtual Category? Category { get; set; }
 
         public string? ImageUrl { get; set; }
+
+        public IFormFile? ImageFile { get; set; }
     }
 }

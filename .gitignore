@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# SQLite databases
+app.db
+app.db-shm
+app.db-wal
+
+# Uploaded images
+wwwroot/images/books/*
+!wwwroot/images/books/.gitkeep

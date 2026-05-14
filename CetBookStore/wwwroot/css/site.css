@@ -1,3 +1,13 @@
+:root {
+  --apple-bg: #fbfbfd;
+  --apple-text: #1d1d1f;
+  --apple-gray: #86868b;
+  --apple-blue: #0071e3;
+  --apple-blue-hover: #0077ed;
+  --apple-border: #d2d2d7;
+  --apple-radius: 12px;
+}
+
 html {
   font-size: 14px;
 }
@@ -8,24 +18,102 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
   margin-bottom: 60px;
+  background-color: var(--apple-bg);
+  color: var(--apple-text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.navbar {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: none !important;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.nav-link {
+  font-weight: 400;
+  color: var(--apple-text) !important;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--apple-blue) !important;
+}
+
+.btn {
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary, .btn-success {
+  background-color: var(--apple-blue);
+  border-color: var(--apple-blue);
+}
+
+.btn-primary:hover, .btn-success:hover {
+  background-color: var(--apple-blue-hover);
+  border-color: var(--apple-blue-hover);
+  box-shadow: 0 4px 10px rgba(0, 113, 227, 0.3);
+}
+
+.btn-danger {
+  border-radius: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: var(--apple-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.form-control, .form-select {
+  border-radius: 10px;
+  border: 1px solid var(--apple-border);
+  padding: 0.6rem 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--apple-blue);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+}
+
+.table th {
+  font-weight: 500;
+  color: var(--apple-gray);
+  border-bottom-width: 1px;
+}
+
+.dropdown-menu {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+}
+
+.dropdown-item {
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+}
+
+.dropdown-item:hover {
+  background-color: var(--apple-bg);
+  color: var(--apple-blue);
 }

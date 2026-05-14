@@ -1,37 +1,27 @@
-﻿@model CetBookStore.Models.Category
-
+@model CetBookStore.Models.Category
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Kategori Düzenle";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <h2 class="mb-4 fw-bold">Kategori Düzenle</h2>
+        
+        <div class="card p-4">
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="Id" />
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label text-muted">Kategori Adı</label>
+                    <input asp-for="Name" class="form-control form-control-lg" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
 
-<h4>Category</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsVisibleInMenu" /> @Html.DisplayNameFor(model => model.IsVisibleInMenu)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-success btn-lg px-5">Güncelle</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

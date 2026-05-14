@@ -1,82 +1,67 @@
-﻿@model CetBookStore.Models.Book
-
+@model CetBookStore.Models.BookViewModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Kitap Düzenle";
 }
 
-<h1>Edit</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <h2 class="mb-4 fw-bold">Kitap Düzenle</h2>
+        
+        <div class="card p-4">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ImageUrl" />
+                
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="mb-3 text-center">
+                        <img src="@Model.ImageUrl" alt="Mevcut Resim" class="img-thumbnail" style="max-height: 200px;" />
+                    </div>
+                }
+                else
+                {
+                    <div class="mb-3 text-center text-muted">
+                        <div class="p-4 border rounded bg-light">
+                            <i class="bi bi-image" style="font-size: 2rem;"></i>
+                            <p class="mb-0 mt-2">Mevcut resim yok</p>
+                        </div>
+                    </div>
+                }
 
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Publisher" class="control-label"></label>
-                <input asp-for="Publisher" class="form-control" />
-                <span asp-validation-for="Publisher" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PageCount" class="control-label"></label>
-                <input asp-for="PageCount" class="form-control" />
-                <span asp-validation-for="PageCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsInSale" /> @Html.DisplayNameFor(model => model.IsInSale)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="PreviousPrice" class="control-label"></label>
-                <input asp-for="PreviousPrice" class="form-control" />
-                <span asp-validation-for="PreviousPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublicationDate" class="control-label"></label>
-                <input asp-for="PublicationDate" class="form-control" />
-                <span asp-validation-for="PublicationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="mb-3">
+                    <label asp-for="ImageFile" class="form-label text-muted">Kitap Resmi (Yeni Seç)</label>
+                    <input asp-for="ImageFile" type="file" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label text-muted">Kitap Adı</label>
+                    <input asp-for="Title" class="form-control form-control-lg" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Price" class="form-label text-muted">Ücret</label>
+                        <input asp-for="Price" type="number" step="0.01" class="form-control form-control-lg" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CategoryId" class="form-label text-muted">Kategori</label>
+                        <select asp-for="CategoryId" class ="form-select form-control-lg" asp-items="ViewBag.CategoryId">
+                            <option value="">-- Kategori Seç --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-success btn-lg px-5">Güncelle</button>
+                    <a asp-action="Index" class="btn btn-link text-muted">İptal</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

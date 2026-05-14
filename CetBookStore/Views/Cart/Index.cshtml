@@ -1,0 +1,51 @@
+@model IEnumerable<CetBookStore.Models.CartItem>
+@{
+    ViewData["Title"] = "Sepet";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <h2 class="fw-bold mb-4">Sepetim</h2>
+
+        @if (!Model.Any())
+        {
+            <div class="card p-5 text-center mt-3 bg-light">
+                <h4 class="text-muted">Sepetiniz Boş</h4>
+                <a asp-controller="Books" asp-action="Index" class="btn btn-primary mt-3 mx-auto" style="width:200px">Kitaplara Göz At</a>
+            </div>
+        }
+        else
+        {
+            <div class="card p-4 shadow-sm">
+                <ul class="list-group list-group-flush mb-4">
+                    @foreach (var item in Model)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center py-3 px-0">
+                            <div>
+                                <strong class="fs-5">@item.Book?.Title</strong>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="fs-5 text-dark fw-bold me-4">@item.Book?.Price.ToString("C")</span>
+                                <form asp-action="RemoveFromCart" method="post" class="m-0">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger px-3">Sil</button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                
+                <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded-3">
+                    <span class="fs-4 fw-bold">Toplam:</span>
+                    <span class="fs-3 text-primary fw-bold">@Model.Sum(x => x.Book?.Price)?.ToString("C")</span>
+                </div>
+
+                <div class="mt-4 text-end">
+                    <form asp-action="Checkout" method="post">
+                        <button type="submit" class="btn btn-success btn-lg w-100 fw-bold shadow-sm py-3">Sipariş Ver</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
